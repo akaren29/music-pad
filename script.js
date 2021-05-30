@@ -44,7 +44,7 @@ function onPressNode(node){
    },300)
   //find code
   let id = node.id
-  
+
   let keyCode = id.split("-")[1];
   console.log(keyCode + ' desde playMusic')
   var audio = new Audio(`${BASE_URL}/${keyCode}.wav`);
@@ -53,12 +53,16 @@ function onPressNode(node){
 
 //TAREA: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-// AQUI VA TU OBSERVADOR keypress
 document.addEventListener('keypress', playMusic)
 
 // AQUI VA TU FUNCION CALLBACK
 function playMusic(e){
-    for (let pad in pads){
-      onPressNode(pad)
-    }
+    for(let pad of pads){
+        let key = pad.setAttribute('data-key', pad.id.split("-")[1]);
+        let tecla = Number(pad.getAttribute('data-key'))
+        if(e.keyCode === Number(tecla)){
+          onPressNode(pad)
+        }        
+  }
 }
+
